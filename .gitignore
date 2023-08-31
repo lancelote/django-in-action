@@ -4,3 +4,6 @@
 # Virtual environment
 .venv/
 venv/
+
+# Database
+db.sqlite3
