@@ -10,3 +10,8 @@ def credits(request):
 def about(request):
     content = "<div>'Django in Action' book project</div>"
     return HttpResponse(content, content_type="text/html")
+
+
+def version(request):
+    content = {"version": "2"}
+    return JsonResponse(content)
