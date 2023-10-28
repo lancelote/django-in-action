@@ -1,14 +1,14 @@
-<html lang="en">
-<head>
-    <title>RiffMates news</title>
-</head>
-<body>
-<h1>RiffMates News</h1>
+{% extends 'base.html' %}
 
-<ul>
-    {% for item in news %}
-        <li>{{ item }}</li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% block title %}
+	{{ block.super }}: News
+{% endblock title %}
+
+{% block content %}
+	<h1>RiffMates News</h1>
+    <ul>
+        {% for item in news %}
+        	<li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
