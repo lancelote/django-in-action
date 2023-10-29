@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ block.super }}: News
+{% endblock title %}
+
+{% block content %}
+	<h1>RiffMates News</h1>
+    
+    <table>
+    {% for item in news %}
+    	<tr style="background-color: {% cycle '#F0F0F0' '#E8E8E8' %}">
+            <td>{{ item.0 | date:"d:m:Y" }}</td>
+            <td>{{ item.1 }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock content %}

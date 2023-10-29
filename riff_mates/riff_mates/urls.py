@@ -26,4 +26,5 @@ urlpatterns = [
     path('about/', home_views.about),
     path('version/', home_views.version),
     path('news/', home_views.news, name="news"),
+    path('news_adv/', home_views.news_advanced, name="news_adv"),
 ]

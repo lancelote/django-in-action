@@ -1,3 +1,5 @@
+import datetime as dt
+
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -26,3 +28,14 @@ def news(request):
         ]
     }
     return render(request, "news.html", data)
+
+
+def news_advanced(request):
+    data = {
+        "news": [
+            (dt.datetime.now(), "RiffMates now has a news page!"),
+            (dt.datetime.now(), "RiffMates has its first web page"),
+            (dt.datetime.now(), "RiffMates has advanced news page"),
+        ]
+    }
+    return render(request, "news_adv.html", data)
