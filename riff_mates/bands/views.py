@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
@@ -10,5 +11,23 @@ def musician(request, musician_id):
 
 
 def musicians(request):
-    data = {"musicians": Musician.objects.all().order_by("last_name")}
-    return render(request, "musicians.html", data)
+    all_musicians = Musician.objects.all().order_by("last_name")
+    paginator = Paginator(all_musicians, 2)
+
+    page_num = int(request.GET.get("page", 1))
+
+    if page_num < 1:
+        page_num = 1
+    elif page_num > paginator.num_pages:
+        page_num = paginator.num_pages
+
+    page = paginator.page(page_num)
+
+    return render(
+        request,
+        "musicians.html",
+        {
+            "musicians": page.object_list,
+            "page": page,
+        }
+    )
