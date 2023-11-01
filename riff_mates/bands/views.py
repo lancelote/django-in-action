@@ -4,16 +4,27 @@ from django.shortcuts import get_object_or_404
 
 from bands.models import Musician
 
+DEFAULT_PER_PAGE = 2
+MAXIMUM_PER_PAGE = 5
+
 
 def musician(request, musician_id):
     data = {"musician": get_object_or_404(Musician, id=musician_id)}
     return render(request, "musician.html", data)
 
 
-def musicians(request):
-    all_musicians = Musician.objects.all().order_by("last_name")
-    paginator = Paginator(all_musicians, 2)
+def get_items_per_page(request):
+    per_page = int(request.GET.get("per_page", DEFAULT_PER_PAGE))
 
+    if per_page < 1:
+        per_page = DEFAULT_PER_PAGE
+    elif per_page > 5:
+        per_page = MAXIMUM_PER_PAGE
+
+    return per_page
+
+
+def get_page_num(request, paginator):
     page_num = int(request.GET.get("page", 1))
 
     if page_num < 1:
@@ -21,6 +32,15 @@ def musicians(request):
     elif page_num > paginator.num_pages:
         page_num = paginator.num_pages
 
+    return page_num
+
+
+def musicians(request):
+    all_musicians = Musician.objects.all().order_by("last_name")
+
+    per_page = get_items_per_page(request)
+    paginator = Paginator(all_musicians, per_page)
+    page_num = get_page_num(request, paginator)
     page = paginator.page(page_num)
 
     return render(
@@ -29,5 +49,6 @@ def musicians(request):
         {
             "musicians": page.object_list,
             "page": page,
+            "per_page": per_page,
         }
     )
