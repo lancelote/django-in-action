@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
+from bands.models import Band
 from bands.models import Musician
 
 DEFAULT_PER_PAGE = 2
@@ -11,6 +12,11 @@ MAXIMUM_PER_PAGE = 5
 def musician(request, musician_id):
     data = {"musician": get_object_or_404(Musician, id=musician_id)}
     return render(request, "musician.html", data)
+
+
+def band(request, band_id):
+    data = {"band": get_object_or_404(Band, id=band_id)}
+    return render(request, "band.html", data)
 
 
 def get_items_per_page(request):
