@@ -3,6 +3,7 @@ import datetime as dt
 from django.contrib import admin
 
 from bands.models import Musician
+from bands.models import Band
 
 
 class DecadeListFilter(admin.SimpleListFilter):
@@ -47,3 +48,8 @@ class MusicianAdmin(admin.ModelAdmin):
         return obj.birth.strftime("%A")
 
     show_weekday.short_description = "Birth Weekday"
+
+
+@admin.register(Band)
+class BandAdmin(admin.ModelAdmin):
+    pass
