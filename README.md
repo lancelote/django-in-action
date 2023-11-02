@@ -8,7 +8,7 @@ My notes reading "[Django in Action][book]" book by Christopher Trudeau
   - [x] Chapter 1: Django unfolds
   - [x] Chapter 2: Your first Django site
   - [x] Chapter 3: Templates
-  - [ ] Chapter 4: Django ORM
+  - [x] Chapter 4: Django ORM
   - [ ] Chapter 5: Django Admin
 - [ ] Part 2: Django Building Blocks
   - [ ] Chapter 6: User management
