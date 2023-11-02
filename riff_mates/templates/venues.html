@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ block.super }}: Venue Listing	
+{% endblock title %}
+
+{% block content %}
+	<h1>Bands</h1>
+    
+    <ul>
+        {% for venue in venues %}
+        	<li><a href="{% url 'venue' venue.id %}">
+                {{ venue.name }}
+            </a></li>
+        {% empty %}
+            <li><i>No venues in the database</i></li>
+        {% endfor %}
+    </ul>
+    
+    {% if page.has_other_pages %}
+    	{% if page.has_previous %}
+            <a href="{% url 'bands' %}?page={{ page.previous_page_number }}&per_page={{ per_page }}">Prev</a> &nbsp;&nbsp;&nbsp;
+    	{% endif %} 
+        {% if page.has_next %}
+            <a href="{% url 'bands' %}?page={{ page.next_page_number }}&per_page={{ per_page }}">Next</a>
+        {% endif %}
+    {% endif %} 
+{% endblock content %}

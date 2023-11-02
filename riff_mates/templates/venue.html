@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ block.super }}: Venue Details
+{% endblock title %}
+
+{% block content %}
+	<h1>{{ venue.name }}</h1>
+    <ul>
+        {% for room in venue.room_set.all %}
+        	<li><a href="{% url 'room' room.id %}">
+                {{ room.name }}
+            </a></li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
