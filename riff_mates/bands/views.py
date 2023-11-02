@@ -53,58 +53,26 @@ def get_page_num(request, paginator):
     return page_num
 
 
+def get_page(request, items):
+    per_page = get_items_per_page(request)
+    paginator = Paginator(items, per_page)
+    page_num = get_page_num(request, paginator)
+    return paginator.page(page_num)
+
+
 def musicians(request):
     all_musicians = Musician.objects.all().order_by("last_name")
-
-    per_page = get_items_per_page(request)
-    paginator = Paginator(all_musicians, per_page)
-    page_num = get_page_num(request, paginator)
-    page = paginator.page(page_num)
-
-    return render(
-        request,
-        "musicians.html",
-        {
-            "musicians": page.object_list,
-            "page": page,
-            "per_page": per_page,
-        }
-    )
+    page = get_page(request, all_musicians)
+    return render(request, "musicians.html", {"musicians": page.object_list, "page": page})
 
 
 def bands(request):
     all_bands = Band.objects.all().order_by("name")
-
-    per_page = get_items_per_page(request)
-    paginator = Paginator(all_bands, per_page)
-    page_num = get_page_num(request, paginator)
-    page = paginator.page(page_num)
-
-    return render(
-        request,
-        "bands.html",
-        {
-            "bands": page.object_list,
-            "page": page,
-            "per_page": per_page,
-        }
-    )
+    page = get_page(request, all_bands)
+    return render(request, "bands.html", {"bands": page.object_list, "page": page})
 
 
 def venues(request):
     all_venues = Venue.objects.all().order_by("name")
-
-    per_page = get_items_per_page(request)
-    paginator = Paginator(all_venues, per_page)
-    page_num = get_page_num(request, paginator)
-    page = paginator.page(page_num)
-
-    return render(
-        request,
-        "venues.html",
-        {
-            "venues": page.object_list,
-            "page": page,
-            "per_page": per_page,
-        }
-    )
+    page = get_page(request, all_venues)
+    return render(request, "venues.html", {"venues": page.object_list, "page": page})
