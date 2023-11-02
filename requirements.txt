@@ -1,2 +1,2 @@
-django==4.2.4
+django==5.0b1
 pur==7.3.0
