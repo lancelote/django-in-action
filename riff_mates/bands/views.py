@@ -58,3 +58,22 @@ def musicians(request):
             "per_page": per_page,
         }
     )
+
+
+def bands(request):
+    all_bands = Band.objects.all().order_by("name")
+
+    per_page = get_items_per_page(request)
+    paginator = Paginator(all_bands, per_page)
+    page_num = get_page_num(request, paginator)
+    page = paginator.page(page_num)
+
+    return render(
+        request,
+        "bands.html",
+        {
+            "bands": page.object_list,
+            "page": page,
+            "per_page": per_page,
+        }
+    )
