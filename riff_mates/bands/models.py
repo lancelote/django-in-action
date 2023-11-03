@@ -19,6 +19,9 @@ class Venue(models.Model):
     def __str__(self) -> str:
         return f"Venue(if={self.id}, name={self.name})"
 
+    class Meta:
+        ordering = ["name"]
+
 
 class Room(models.Model):
     name = models.CharField(max_length=20)
@@ -28,6 +31,7 @@ class Room(models.Model):
         return f"Room(id={self.id}, name={self.name})"
 
     class Meta:
+        ordering = ["name"]
         unique_together = [["name", "venue"]]
 
 
@@ -37,3 +41,6 @@ class Band(models.Model):
 
     def __str__(self) -> str:
         return f"Band(id={self.id}, name={self.name})"
+
+    class Meta:
+        ordering = ["name"]
