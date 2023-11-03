@@ -7,6 +7,17 @@ from bands.models import Musician, Venue, Room
 from bands.models import Band
 
 
+def get_html(items, singular, plural):
+    if not items:
+        return format_html("<i>None</i>")
+
+    plural = plural if len(items) > 1 else ""
+    param = "?id__in=" + ",".join(str(item.id) for item in items)
+    url = reverse(f"admin:bands_{singular}_changelist") + param
+
+    return format_html('<a href="{}">{}{}</a>', url, singular.capitalize(), plural)
+
+
 @admin.register(Musician)
 class MusicianAdmin(admin.ModelAdmin):
     list_display = ("id", "last_name", "first_name", "birth", "show_weekday", "show_bands")
@@ -20,15 +31,7 @@ class MusicianAdmin(admin.ModelAdmin):
 
     def show_bands(self, obj):
         bands = obj.band_set.all()
-
-        if not bands:
-            return format_html("<i>None</i>")
-
-        plural = "s" if len(bands) > 1 else ""
-        param = "?id__in=" + ",".join(str(band.id) for band in bands)
-        url = reverse("admin:bands_band_changelist") + param
-
-        return format_html('<a href="{}">Band{}</a>', url, plural)
+        return get_html(bands, "band", "s")
 
     show_bands.short_description = "Bands"
 
@@ -40,15 +43,7 @@ class BandAdmin(admin.ModelAdmin):
 
     def show_members(self, obj):
         members = obj.musicians.all()
-
-        if not members:
-            return format_html("<i>None</i>")
-
-        plural = "s" if len(members) > 1 else ""
-        param = "?id__in=" + ",".join(str(member.id) for member in members)
-        url = reverse("admin:bands_musician_changelist") + param
-
-        return format_html('<a href="{}">Member{}</a>', url, plural)
+        return get_html(members, "musician", "s")
 
     show_members.short_description = "Members"
 
@@ -60,15 +55,7 @@ class VenueAdmin(admin.ModelAdmin):
 
     def show_rooms(self, obj):
         rooms = obj.room_set.all()
-
-        if not rooms:
-            return format_html("<i>None</i>")
-
-        plural = "s" if len(rooms) > 1 else ""
-        param = "?id__in=" + ",".join(str(room.id) for room in rooms)
-        url = reverse("admin:bands_room_changelist") + param
-
-        return format_html('<a href="{}">Room{}</a>', url, plural)
+        return get_html(rooms, "room", "s")
 
     show_rooms.short_description = "Rooms"
 
