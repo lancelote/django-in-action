@@ -40,9 +40,9 @@ class BandAdmin(admin.ModelAdmin):
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
 
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
