@@ -27,6 +27,9 @@ class Room(models.Model):
     def __str__(self) -> str:
         return f"Room(id={self.id}, name={self.name})"
 
+    class Meta:
+        unique_together = [["name", "venue"]]
+
 
 class Band(models.Model):
     name = models.CharField(max_length=20)
