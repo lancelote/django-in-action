@@ -55,7 +55,22 @@ class BandAdmin(admin.ModelAdmin):
 
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "show_rooms")
     search_fields = ("name",)
+
+    def show_rooms(self, obj):
+        rooms = obj.room_set.all()
+
+        if not rooms:
+            return format_html("<i>None</i>")
+
+        plural = "s" if len(rooms) > 1 else ""
+        param = "?id__in=" + ",".join(str(room.id) for room in rooms)
+        url = reverse("admin:bands_room_changelist") + param
+
+        return format_html('<a href="{}">Room{}</a>', url, plural)
+
+    show_rooms.short_description = "Rooms"
 
 
 @admin.register(Room)
