@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 
 from bands.filters import DecadeListFilter
-from bands.models import Musician
+from bands.models import Musician, Venue, Room
 from bands.models import Band
 
 
@@ -36,3 +36,13 @@ class MusicianAdmin(admin.ModelAdmin):
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+
+
+@admin.register(Venue)
+class VenueAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    pass
