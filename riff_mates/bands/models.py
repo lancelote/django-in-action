@@ -9,6 +9,9 @@ class Musician(models.Model):
     def __str__(self) -> str:
         return f"Musician(id={self.id}, last_name={self.last_name})"
 
+    class Meta:
+        ordering = ["last_name", "first_name"]
+
 
 class Venue(models.Model):
     name = models.CharField(max_length=20)
