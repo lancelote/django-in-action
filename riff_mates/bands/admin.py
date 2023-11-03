@@ -68,4 +68,4 @@ class MusicianAdmin(admin.ModelAdmin):
 
 @admin.register(Band)
 class BandAdmin(admin.ModelAdmin):
-    pass
+    search_fields = ("name",)
