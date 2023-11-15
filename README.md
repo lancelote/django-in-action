@@ -4,7 +4,7 @@ My notes reading "[Django in Action][book]" book by Christopher Trudeau
 
 ## TOC
 
-- [ ] Part 1: Django Essentials
+- [x] Part 1: Django Essentials
   - [x] Chapter 1: Django unfolds
   - [x] Chapter 2: Your first Django site
   - [x] Chapter 3: Templates
